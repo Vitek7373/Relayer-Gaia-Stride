@@ -1,0 +1,50 @@
+global:
+    api-listen-addr: :5183
+    timeout: 10s
+    memo: vitek#9360
+    light-cache-size: 20
+chains:
+    gaia:
+        type: cosmos
+        value:
+            key: gaia
+            chain-id: GAIA
+            rpc-addr: http://88.198.132.129:26657
+            account-prefix: cosmos
+            keyring-backend: test
+            gas-adjustment: 1.2
+            gas-prices: 0.001uatom
+            debug: true
+            timeout: 20s
+            output-format: json
+            sign-mode: direct
+    stride:
+        type: cosmos
+        value:
+            key: stride
+            chain-id: STRIDE-TESTNET-2
+            rpc-addr: http://127.0.0.1:26657
+            account-prefix: stride
+            keyring-backend: test
+            gas-adjustment: 1.2
+            gas-prices: 0.001ustrd
+            debug: true
+            timeout: 20s
+            output-format: json
+            sign-mode: direct
+paths:
+    ibctransfer:
+        src:
+            chain-id: STRIDE-TESTNET-2
+            client-id: 07-tendermint-0
+            connection-id: connection-0
+        dst:
+            chain-id: GAIA
+            client-id: 07-tendermint-0
+            connection-id: connection-0
+        src-channel-filter:
+            rule: allowlist
+            channel-list:
+                - transfer
+                - channel-0
+                - channel-1
